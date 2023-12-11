@@ -1,0 +1,17 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "할일1",
+      "contents": "리엑트공부",
+      "isDone": false
+    },
+    { "id": 1, "title": "할일2", "contents": "스프링공부", "isDone": true },
+    {
+      "id": 1,
+      "title": "할일3",
+      "contents": "자바스크립트공부",
+      "isDone": false
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import "./styles";
 import { StyledDiv } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { useMutation, useQueryClient } from "react-query";
 import { addTodo } from "../../modules/todos";
 
 /**
@@ -18,6 +19,15 @@ import { addTodo } from "../../modules/todos";
  */
 function Input() {
   const dispatch = useDispatch();
+
+  // 리엑트 쿼리 관련 코드
+  const queryClient = new queryClient();
+  const mutation = useMutation(addTodo, {
+    onSucess: () => {
+      queryClient.invalidateQueries("todos"); // 쿼리키 -> 이 키를 무효화 시키고 다시 불러옴
+      console.log("성공하였습니다.");
+    },
+  });
 
   // useSelector를 통한, store의 값 접근
   const todos = useSelector((state) => state.todos);
@@ -83,7 +93,8 @@ function Input() {
 
     // todo를 추가하는 reducer 호출
     // 인자 : payload
-    dispatch(addTodo(newTodo));
+    // dispatch(addTodo(newTodo));
+    mutation.mutate(newTodo);
 
     // state 두 개를 초기화
     setTitle("");
